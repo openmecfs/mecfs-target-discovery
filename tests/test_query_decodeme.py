@@ -84,7 +84,7 @@ class TestDecodeMEConnectorBundled:
     def test_query_signals_bundled_provenance(self):
         signals = _dc._query_from_bundled_json(p_threshold=5e-8, gwas_set="GWAS-1", chr_=None)
         for s in signals:
-            assert s.provenance.source == "DecodeME_GWAS_2024"
+            assert s.provenance.source == "DecodeME_GWAS_2025"
             assert s.provenance.evidence_type == "GWAS"
             assert s.provenance.data_quality == "approximate_from_paper"
             assert s.provenance.strength > 0
@@ -142,11 +142,11 @@ class TestProvenanceModel:
 
     def test_provenance_valid(self):
         prov = Provenance(
-            source="DecodeME_GWAS_2024",
+            source="DecodeME_GWAS_2025",
             evidence_type="GWAS",
             url="https://osf.io/rgqs3/",
             strength=8.39,
             strength_label="p=4.1e-09",
         )
-        assert prov.source == "DecodeME_GWAS_2024"
+        assert prov.source == "DecodeME_GWAS_2025"
         assert prov.data_quality == "exact"
