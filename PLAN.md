@@ -90,15 +90,41 @@ provenance.
 ## 6. Data sources
 
 **v1 — all public, no controlled access required:**
-- **DecodeME summary statistics** — the anchor. Apply via the DecodeME / Edinburgh data
-  access process.
+- **DecodeME summary statistics** — the anchor. **Openly available on OSF
+  (`osf.io/rgqs3`)** — no DMTA, no institutional affiliation needed. Ships as multiple
+  stratified sets: `GWAS-1`, `GWAS-2`, `GWAS-infectious`, `GWAS-non-infectious`,
+  `GWAS-female`, `GWAS-male` (the infectious vs non-infectious split is a built-in
+  subtype contrast worth exploiting).
+  - *Prior art / reference:* `github.com/paolomaccallini-hub/DecodeME` — an R pipeline
+    that replicates the preprint's fine-mapping + variant→gene (VEP/GTEx/ABC). Use to
+    cross-check our (Python) implementation, not to clone.
 - **Open Targets** (GraphQL API) — target–disease evidence + tractability/druggability.
 - **ChEMBL** (API) — bioactive molecules, targets, existing drugs.
 - **GWAS Catalog**, **eQTL Catalogue / GTEx** — variant→gene mapping & colocalization.
 - **Reactome / KEGG / GO / STRING / UniProt** — pathways & molecular relationships.
 - **BioMapAI / DeepMECFS** (`github.com/ohlab/BioMapAI`) — wrap as a tool; interop + credibility.
 
+**DecodeME OSF access — VERIFIED PUBLIC (no auth/DMTA/affiliation).**
+Confirmed via the OSF API (`api.osf.io/v2/nodes/rgqs3/files/osfstorage/`) returning the
+full listing with no token. Node `rgqs3` root contains:
+- `DecodeME Summary Statistics/` — the GWAS stats (the anchor)
+- `Non-DecodeME-FMS-GWAS/` — fibromyalgia GWAS (disease comparator)
+- `UK Biobank - Samms and Ponting/` — related UKB analyses
+- `DecodeME Questionnaires/` + questionnaire PDF — phenotype definitions
+- `DecodeME-GWAS-Analysis-Plan-v1.pdf`, `regressionResults.pdf` — methods/results
+
+Fetch with `scripts/fetch_decodeme.py` (stdlib-only OSF downloader; `--list` to preview,
+`--only "DecodeME Summary Statistics"` to grab just the stats). Writes `data/decodeme/`
++ `manifest.csv`. **Acknowledgement required** in any output: DecodeME is funded by NIHR
+& MRC (grant MC_PC_20005) — see the publications policy.
+
 **Later — controlled access, do NOT make v1 depend on these:**
+- **DecodeME individual-level genotypes + biosamples** — managed access only: requires an
+  eligible **institution** (academic or commercial) whose legal dept signs a DMTA with
+  Edinburgh, an organisational email, funding confirmation, PPI plan, quarterly DAC review.
+  An independent applicant with a personal email is **not eligible**. Only needed for
+  per-participant work; v1 (summary-stats analysis) does not require it. Pursue via an
+  academic collaborator as lead applicant if/when needed.
 - **mapMECFS** (DUA + NIH approval) — multi-omics datasets.
 - **RECOVER** Long COVID (BioData Catalyst / dbGaP).
 - **UK Biobank**, **All of Us** — CFS-coded cases.
@@ -121,9 +147,11 @@ Each tool is independently usable **and** composable into a full
 
 ## 8. 12-week build plan
 
-- **Weeks 1–2 — Scaffold + first signal.** Repo + MCP server skeleton; ingest DecodeME
-  summary stats; Open Targets connector. *Milestone:* a crude ranked gene/target list
-  from the loci.
+- **Weeks 1–2 — Scaffold + first signal.** Repo + MCP server skeleton; run
+  `scripts/fetch_decodeme.py` to pull the OSF summary stats into `data/decodeme/`; load into
+  DuckDB behind `query_decodeme`; Open Targets connector. Start with `GWAS-1` + the
+  infectious/non-infectious split. *Milestone:* a ranked gene/target list from the real
+  summary statistics (not a stub).
 - **Weeks 3–4 — Causal mapping.** `map_variants_to_genes` (colocalization w/ eQTL/GTEx);
   `score_druggability`. *Milestone:* targets ranked by causal + tractability evidence.
 - **Weeks 5–6 — Drugs + graph.** `lookup_drugs` (ChEMBL + ongoing trials); build the

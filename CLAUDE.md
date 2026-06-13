@@ -43,9 +43,18 @@ UK Biobank) — those come later.
 ## Current status
 
 - ✅ Plan finalized (`PLAN.md`).
-- ⬜ Create `openmecfs` GitHub org + this repo; clone locally.
-- ⬜ **Next:** Weeks 1–2 — scaffold MCP server + `query_decodeme` + Open Targets connector
-  → produce a crude ranked target list from the DecodeME loci.
+- ✅ `openmecfs` GitHub org + `mecfs-target-discovery` repo created.
+- ✅ DecodeME data access resolved: **summary statistics are openly available on OSF
+  (node `rgqs3`), no DMTA/affiliation needed.** Downloader written: `scripts/fetch_decodeme.py`.
+  (Individual-level genotypes/samples remain controlled — not needed for v1.)
+- ⬜ **Next (Weeks 1–2):**
+  1. `python scripts/fetch_decodeme.py --list` to preview, then
+     `--only "DecodeME Summary Statistics"` to download into `data/decodeme/`.
+  2. Scaffold the MCP server + smoke-test tool.
+  3. Load the summary stats into DuckDB behind `query_decodeme` (start with `GWAS-1` +
+     the infectious/non-infectious split).
+  4. Open Targets connector → `score_druggability`. Milestone: ranked target list from
+     the real summary statistics.
 
 ## How to work in this repo
 
