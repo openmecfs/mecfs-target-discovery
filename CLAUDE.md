@@ -45,16 +45,25 @@ UK Biobank) — those come later.
 - ✅ Plan finalized (`PLAN.md`).
 - ✅ `openmecfs` GitHub org + `mecfs-target-discovery` repo created.
 - ✅ DecodeME data access resolved: **summary statistics are openly available on OSF
-  (node `rgqs3`), no DMTA/affiliation needed.** Downloader written: `scripts/fetch_decodeme.py`.
+  (node `rgqs3`), no DMTA/affiliation needed.** Downloader: `scripts/fetch_decodeme.py`.
   (Individual-level genotypes/samples remain controlled — not needed for v1.)
-- ⬜ **Next (Weeks 1–2):**
-  1. `python scripts/fetch_decodeme.py --list` to preview, then
-     `--only "DecodeME Summary Statistics"` to download into `data/decodeme/`.
-  2. Scaffold the MCP server + smoke-test tool.
-  3. Load the summary stats into DuckDB behind `query_decodeme` (start with `GWAS-1` +
-     the infectious/non-infectious split).
-  4. Open Targets connector → `score_druggability`. Milestone: ranked target list from
-     the real summary statistics.
+- ✅ **Weeks 1–2 scaffold complete:**
+  - `pyproject.toml` + package installed (`pip install -e ".[dev]"`)
+  - `src/models.py` — provenance-carrying Pydantic models (`Provenance`, `GWASLocus`,
+    `GWASSignal`, `OpenTargetsResult`, `RankedTarget`)
+  - `src/connectors/decodeme.py` — DuckDB-backed GWAS loader; falls back gracefully to
+    bundled `data/decodeme/loci.json` when summary stats not yet downloaded
+  - `src/connectors/open_targets.py` — async GraphQL connector with file cache
+  - `src/tools/query_decodeme.py` + `src/tools/rank_targets.py` — MCP tools registered
+  - `src/server.py` — FastMCP server entry point
+  - `tests/` — 16 tests, all passing
+- ⬜ **Next:**
+  1. Download real summary stats:
+     ```
+     python scripts/fetch_decodeme.py --only "DecodeME Summary Statistics"
+     ```
+  2. Smoke-test `rank_targets` against real data (DuckDB path + Open Targets live query).
+  3. Weeks 3–4: `map_variants_to_genes` (eQTL colocalization) + `score_druggability`.
 
 ## How to work in this repo
 

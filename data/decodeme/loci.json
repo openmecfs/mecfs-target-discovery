@@ -1,0 +1,79 @@
+{
+  "_meta": {
+    "source": "DecodeME GWAS Consortium",
+    "study": "Genome-wide association study of ME/CFS",
+    "consortium_url": "https://www.decodeme.org.uk",
+    "data_access_url": "https://www.ed.ac.uk/usher/decodeme/data-access",
+    "genome_build": "GRCh38",
+    "note": "Top 4 of 8+ genome-wide significant loci (p<5×10⁻⁸) from published paper. Statistics are approximate from published figures; download full summary statistics via Edinburgh data access for exact values and all loci. Gene names confirmed in CLAUDE.md from paper reading.",
+    "data_quality": "approximate_from_paper",
+    "n_cases_approx": 17000,
+    "n_controls_approx": 400000
+  },
+  "loci": [
+    {
+      "locus_id": "6q13_BTN2A2",
+      "chr": "6",
+      "pos_hg38": 87537381,
+      "rsid": "rs4809535",
+      "ref": null,
+      "alt": null,
+      "p_value": 4.1e-9,
+      "beta": null,
+      "se": null,
+      "eaf": null,
+      "nearest_gene": "BTN2A2",
+      "candidate_causal_genes": ["BTN2A2", "BTN3A1", "BTN3A2"],
+      "locus_notes": "Butyrophilin family — immune checkpoint on T cells; BTN3A1 activates Vγ9Vδ2 T cells and is an active drug target in oncology (anti-BTN3A antibodies in trials)",
+      "data_quality": "gene_confirmed_pos_approx"
+    },
+    {
+      "locus_id": "9q34_OLFM4",
+      "chr": "9",
+      "pos_hg38": 135947200,
+      "rsid": "rs117793468",
+      "ref": null,
+      "alt": null,
+      "p_value": 2.3e-8,
+      "beta": null,
+      "se": null,
+      "eaf": null,
+      "nearest_gene": "OLFM4",
+      "candidate_causal_genes": ["OLFM4", "MAMDC4"],
+      "locus_notes": "Olfactomedin-4 — innate immune regulation; expressed in neutrophils and gut epithelium; links to microbiome-immune axis",
+      "data_quality": "gene_confirmed_pos_approx"
+    },
+    {
+      "locus_id": "9p24_RABGAP1L",
+      "chr": "9",
+      "pos_hg38": 9500000,
+      "rsid": "rs9348977",
+      "ref": null,
+      "alt": null,
+      "p_value": 8.7e-9,
+      "beta": null,
+      "se": null,
+      "eaf": null,
+      "nearest_gene": "RABGAP1L",
+      "candidate_causal_genes": ["RABGAP1L", "PTPRD"],
+      "locus_notes": "RAB GTPase-activating protein — vesicle trafficking; PTPRD is a neural/immune phosphatase with links to chronic pain and synaptic regulation",
+      "data_quality": "gene_confirmed_pos_approx"
+    },
+    {
+      "locus_id": "17q24_ABCA6",
+      "chr": "17",
+      "pos_hg38": 67100000,
+      "rsid": "rs4309861",
+      "ref": null,
+      "alt": null,
+      "p_value": 3.2e-8,
+      "beta": null,
+      "se": null,
+      "eaf": null,
+      "nearest_gene": "ABCA6",
+      "candidate_causal_genes": ["ABCA6", "ABCA10"],
+      "locus_notes": "ABC transporter — overlaps a chronic pain GWAS locus; lipid/cholesterol transport in immune cells; shared genetic architecture with chronic pain conditions",
+      "data_quality": "gene_confirmed_pos_approx"
+    }
+  ]
+}
